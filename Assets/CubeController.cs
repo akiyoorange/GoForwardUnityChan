@@ -24,18 +24,16 @@ public class CubeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //オーディオを取得
+        GetComponent<AudioSource>();
+
+        //Unityちゃんを取得
+        this.unitychan2d = GameObject.Find("UnityChan2D");
     }
 
     // Update is called once per frame
     void Update()
     {
-        // キューブが着地しているかどうかを調べる
-        bool isGround = (transform.position.y > this.groundLevel) ? false : true;
-
-        // 空中にいるときにはボリュームを0にする
-        GetComponent<AudioSource>().volume = (isGround) ? 1 : 0;
-
         // キューブを移動させる
         transform.Translate(this.speed * Time.deltaTime, 0, 0);
 
@@ -49,20 +47,10 @@ public class CubeController : MonoBehaviour
     //衝突時に呼ばれる関数
     void OnCollisionEnter(Collision collision)
     {
-        //オーディオを取得
-        GetComponent<AudioSource>();
-
-        //Unityちゃんを取得
-        this.unitychan2d = GameObject.Find("UnityChan2D");
-
-        //もし衝突した相手の名前がUnityちゃんだったら音量０、それ以外は１
-        if (collision.gameObject.name == "UnityChan2D")
+        //もし衝突した相手がUnityちゃん以外だったら再生
+        if (collision.gameObject != unitychan2d)
         {
-            audioSource.volume = 0;
-        }
-        else
-        {
-            audioSource.volume = 1;
+            audioSource.Play();
         }
 
     }
