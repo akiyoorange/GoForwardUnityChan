@@ -25,7 +25,7 @@ public class CubeController : MonoBehaviour
     void Start()
     {
         //オーディオを取得
-        GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
 
         //Unityちゃんを取得
         this.unitychan2d = GameObject.Find("UnityChan2D");
@@ -45,7 +45,7 @@ public class CubeController : MonoBehaviour
     }
 
     //衝突時に呼ばれる関数
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         //もし衝突した相手がUnityちゃん以外だったら再生
         if (collision.gameObject != unitychan2d)
